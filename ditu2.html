@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#box{
+				width:300px;
+				height:300px;
+				border:1px solid red;
+			}
+		</style>
+	</head>
+	<body>
+		<input type="button" name="btn" id="btn" value="获取地理位置" />
+		
+		<div id="box"></div>
+		
+		<script type="text/javascript">
+			var btn = document.getElementById('btn');
+			var box = document.getElementById('box');
+			
+			
+			btn.onclick = function(){
+				//navigator.geolocation.getCurrentPosition :单次定位请求
+				navigator.geolocation.getCurrentPosition(function(position){
+					var y = position.coords.longitude;
+					var x = position.coords.latitude;
+					
+					box.innerHTML = '经度是：'+y;
+					box.innerHTML += '<br/>纬度是：'+x;
+					box.innerHTML += '<br/>精确度是：'+position.coords.accuracy;
+					box.innerHTML += '<br/>海拔高度是：'+position.coords.altitude;
+					box.innerHTML += '<br/>海拔准确度是：'+position.coords.altitudeAcuracy;
+					box.innerHTML += '<br/>行进方向是：'+position.coords.heading;
+					box.innerHTML += '<br/>地面速度是：'+position.coords.speed;
+					box.innerHTML += '<br/>时间：'+new Date(position.timestamp);
+					
+				},function(position){
+					console.log(position.code)
+				},{
+					enableHighAcuracy:true,
+					timeout:5000,
+					maximumAge:10000
+				});
+			}
+		</script>
+	</body>
+</html>
